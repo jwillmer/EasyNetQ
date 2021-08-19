@@ -104,14 +104,14 @@ namespace EasyNetQ
 
         private IModel GetModel(IAutorecoveringConnection connection)
         {
+            if (connection.ChannelMax == 0) {
+                // unlimited channels available: no need to manage channels
+                return connection.CreateModel();
+            }
+
             lock (mutex)
-            {
-                if (connection.ChannelMax == 0)
-                {
-                    // unlimited channels available: no need to manage channels
-                    return connection.CreateModel();
-                }
-                else if (models.Count < connection.ChannelMax)
+            {                   
+                if (models.Count < connection.ChannelMax)
                 {
                     var model = connection.CreateModel();
                     model.ModelShutdown += (sender, args) => models.Remove(model);

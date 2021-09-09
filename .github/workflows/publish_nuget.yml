@@ -3,7 +3,7 @@ on:
   push:
     branches:
       #- max-channel-option
-     - connection-fix
+     - IsConnectedFix
   workflow_dispatch:
       
 jobs:

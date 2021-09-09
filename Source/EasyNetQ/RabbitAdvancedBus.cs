@@ -93,6 +93,8 @@ namespace EasyNetQ
                 this.eventBus.Subscribe<ConnectionUnblockedEvent>(OnConnectionUnblocked),
                 this.eventBus.Subscribe<ReturnedMessageEvent>(OnMessageReturned),
             };
+
+            connection.Connect();
         }
 
         #region Consume

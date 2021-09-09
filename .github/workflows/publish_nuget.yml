@@ -1,0 +1,34 @@
+name: Publish to NuGet
+on:
+  push:
+    branches:
+      #- max-channel-option
+     - IsConnectedFix
+  workflow_dispatch:
+      
+jobs:
+  publish_to_nuget:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Source
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '2.0.x'
+          source-url: https://nuget.pkg.github.com/jwillmer/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          
+      - name: Build source
+        run: dotnet build --configuration Release
+        
+      - name: Create package
+        run: dotnet pack EasyNetQ/EasyNetQ.csproj --output nuget-packages --configuration Release
+        
+      - name: Publish to registry
+        run: dotnet nuget push nuget-packages/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}

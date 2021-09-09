@@ -66,9 +66,12 @@ namespace EasyNetQ
         private IAutorecoveringConnection Initialize() {
 
             var connection = initializedConnection;
-            if (connection == null)
+            if (connection == null) {
                 lock (mutex)
                     connection = initializedConnection ??= ConnectInternal();
+
+                eventBus.Publish(new ConnectionCreatedEvent(connection.Endpoint));
+            }
             return connection;
         }
 
@@ -160,8 +163,6 @@ namespace EasyNetQ
                 connection.Endpoint.HostName,
                 connection.Endpoint.Port
             );
-
-            eventBus.Publish(new ConnectionCreatedEvent(connection.Endpoint));
 
             return connection;
         }

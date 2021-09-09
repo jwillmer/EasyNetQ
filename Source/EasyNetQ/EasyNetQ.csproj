@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Title>EasyNetQ</Title>
     <Description>A nice .NET API for RabbitMQ</Description>
@@ -21,7 +21,10 @@
     <AssemblyOriginatorKeyFile>..\..\Assets\EasyNetQ.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <PackageId>EasyNetQ-MaxConnectionsAndIsConnectionFix</PackageId>
+    <PackageId>EasyNetQ-MaxConnectionsAndConnectionFix</PackageId>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="LightInject.Source" Version="6.4.0">

@@ -2,7 +2,8 @@ name: Publish to NuGet
 on:
   push:
     branches:
-      - max-channel-option
+      #- max-channel-option
+     - connection-fix
   workflow_dispatch:
       
 jobs:
